@@ -37,8 +37,6 @@ class ScriptAPI:
 
         return self.terrain[terrain_id]
 
-    ### Script API Methods
-
     def add_string(self, name, string):
         key = ("string", name)
 
