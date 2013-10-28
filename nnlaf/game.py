@@ -1,5 +1,6 @@
 import pygame
 
+from rect import Rect
 from controller import Controller
 
 
@@ -48,7 +49,7 @@ class GameMenu:
     def __init__(self, game):
         self.game = game
         self.core = self.game.core
-        self.screen = self.core.screen
+        self.screen = self.game.screen
 
     def update(self):
         pass
@@ -64,9 +65,30 @@ class State:
         self.game = game
         self.zone = zone
 
+        self.screen = self.game.screen
+
         self.battles = [x for x in game.battles if x.zone == self.zone]
         self.targets = [x for x in game.targets if x.zone == self.zone]
         self.terrain = [x for x in game.terrain if x.zone == self.zone]
+
+        # Determine the size required for the map surface
+        map_size_rect = Rect()
+        for ter in self.terrain:
+            map_size_rect.union(ter.rect)
+
+        self.map_surface = pygame.Surface(map_size_rect.size())
+
+        # Draw all static terrain and targets to the map surface
+        for ter in self.terrain:
+            if ter.static:
+                ter.draw(self.map_surface)
+
+        for tar in self.targets:
+            if tar.static:
+                tar.draw(self.map_surface)
+
+    def draw(self):
+        self.screen.blit(self.map_surface, (0, 0))
 
 
 class Game:

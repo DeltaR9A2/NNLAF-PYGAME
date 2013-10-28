@@ -7,6 +7,8 @@ class Battle(Rect):
         Rect.__init__(self)
         self.area = None
 
+    def draw(self, surface):
+        pass
 
 class Target(Rect):
     """This class represents a single 'target' in the game world, which is any
@@ -14,6 +16,9 @@ class Target(Rect):
     def __init__(self):
         Rect.__init__(self)
         self.area = None
+
+    def draw(self, surface):
+        pass
 
 
 class Terrain(Rect):
@@ -31,3 +36,10 @@ class Terrain(Rect):
     def __init__(self):
         Rect.__init__(self)
         self.area = None
+
+    @property
+    def rect(self):
+        return self
+
+    def draw(self, surface):
+        pass
