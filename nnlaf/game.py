@@ -60,13 +60,13 @@ class GameMenu:
 class State:
     """This class is a disposable container representing a portion of the
     complete game world."""
-    def __init__(self, game, area):
+    def __init__(self, game, zone):
         self.game = game
-        self.area = area
+        self.zone = zone
 
-        self.battles = [x for x in game.battles if x.area == self.area]
-        self.targets = [x for x in game.targets if x.area == self.area]
-        self.terrain = [x for x in game.terrain if x.area == self.area]
+        self.battles = [x for x in game.battles if x.zone == self.zone]
+        self.targets = [x for x in game.targets if x.zone == self.zone]
+        self.terrain = [x for x in game.terrain if x.zone == self.zone]
 
 
 class Game:
