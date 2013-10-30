@@ -10,6 +10,7 @@ class Battle(Rect):
     def draw(self, surface):
         pass
 
+
 class Target(Rect):
     """This class represents a single 'target' in the game world, which is any
     non-terrain and non-enemy object that the player can interact with."""

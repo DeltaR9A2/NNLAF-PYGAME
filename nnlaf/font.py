@@ -48,7 +48,7 @@ class Font:
         """Returns the width in pixels that would be occupied by ``text`` if rendered as a single line."""
         total = 0
         for c in text:
-            surf = self.char_dict.get(c, None)
+            surf = self.char_dict.get(c)
             if surf is not None:
                 total += surf.get_width()
 
@@ -60,7 +60,7 @@ class Font:
         avoids the overhead of creating/destroying a surface every time the text changes."""
         cur_x, cur_y = pos
         for c in text:
-            surf = self.char_dict.get(c, None)
+            surf = self.char_dict.get(c)
             if surf is not None:
                 surface.blit(surf, (cur_x, cur_y))
                 cur_x += surf.get_width()
