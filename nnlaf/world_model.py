@@ -5,7 +5,7 @@ class Battle(Rect):
     """This class represents a single 'battle' event during the game."""
     def __init__(self):
         Rect.__init__(self)
-        self.area = None
+        self.zone = None
 
     def draw(self, surface):
         pass
@@ -16,7 +16,7 @@ class Target(Rect):
     non-terrain and non-enemy object that the player can interact with."""
     def __init__(self):
         Rect.__init__(self)
-        self.area = None
+        self.zone = None
 
     def draw(self, surface):
         pass
@@ -36,7 +36,7 @@ class Terrain(Rect):
     be organized in arbitrary ways."""
     def __init__(self):
         Rect.__init__(self)
-        self.area = None
+        self.zone = None
 
     @property
     def rect(self):
