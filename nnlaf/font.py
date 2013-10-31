@@ -85,26 +85,29 @@ class Font:
         line_start = 0
         line_stop = 0
         while line_start < len(text):
-            line_width = 0
+            line_stop += 1
 
-            while line_width < width:
-                line_stop += 1
-                line_width = self.line_width(text[line_start:line_stop])
+            if line_stop >= len(text):
+                line_stop = len(text)
+                lines.append(text[line_start:line_stop])
+                line_start = line_stop
 
-                if line_stop > len(text):
-                    break
+            elif text[line_stop] == "\n":
+                lines.append(text[line_start:line_stop])
+                line_start = line_stop
 
-            line_stop -= 1
-            original_stop = line_stop
-
-            while text[line_stop - 1] != " " and line_stop != len(text):
+            elif self.line_width(text[line_start:line_stop]) > width:
                 line_stop -= 1
-                if line_stop <= line_start:
-                    line_stop = original_stop
-                    break
 
-            lines.append(text[line_start:line_stop])
-            line_start = line_stop
+                while text[line_stop - 1] != " " and line_stop != len(text):
+                    original_stop = line_stop
+                    line_stop -= 1
+                    if line_stop <= line_start:
+                        line_stop = original_stop
+                        break
+
+                lines.append(text[line_start:line_stop])
+                line_start = line_stop
 
         surface = pygame.Surface((width, self._height * len(lines)), pygame.SRCALPHA)
         surface.fill((0, 0, 0, 0))

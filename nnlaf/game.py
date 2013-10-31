@@ -19,30 +19,26 @@ class MainMenu:
         self.x = (screen_w - self.w) // 2
         self.y = (screen_h - self.h) // 2
 
-        self.strings = (
-            "Ninmu Nanmu",
-            "A Game About Love and Freedom",
-            "",
-            "=== Controls ===",
-            "D-Pad: Arrow Keys",
-            "Buttons: Z, X, C, V",
-            "Triggers: A, S",
-            "",
-            "Press ENTER to open/close this screen.",
-            "Close the window to exit the game.",
-        )
-       
+        self.text = """Ninmu Nanmu
+A Game About Love and Freedom
+
+=== Controls ===
+D-Pad: Arrow Keys
+Buttons: Z, X, C, V
+Triggers: A, S
+
+Press ENTER to open/close this screen.
+Close the window to exit the game."""
+
+        self.text_surface = self.font.render_block(self.text, 310)
+
     def update(self):
         pass
         
     def draw(self):
         self.screen.fill((32, 32, 32), (self.x, self.y, self.w, self.h))
 
-        x = self.x+5
-        y = self.y+2
-        for string in self.strings:
-            self.font.render(string, self.screen, (x, y))
-            y += self.font.height
+        self.screen.blit(self.text_surface, (self.x+5, self.y+2))
 
     
 class GameMenu:
