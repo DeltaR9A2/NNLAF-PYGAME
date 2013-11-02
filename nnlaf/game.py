@@ -2,6 +2,7 @@ import pygame
 
 from rect import Rect
 from controller import Controller
+from player import Player
 
 
 class MainMenu:
