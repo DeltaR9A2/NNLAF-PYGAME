@@ -54,7 +54,7 @@ class GameMenu:
         self.screen.fill((32, 128, 32), (32, 32, 128, 256))
 
 
-class State:
+class Zone:
     """This class is a disposable container representing a portion of the
     complete game world."""
     def __init__(self, game, zone):
@@ -90,6 +90,7 @@ class State:
     def update(self):
         pass
 
+
 class Game:
     """This class represents the highest level of the game logic, managing the
     other more specific components of the game."""
@@ -120,7 +121,7 @@ class Game:
         self.terrain.append(test_terrain)
         ########
 
-        self.state = State(self, "apartment")
+        self.zone = Zone(self, "apartment")
         self.dialogue = None
 
     def fast_step(self):
@@ -152,8 +153,8 @@ class Game:
 
         if self.dialogue is not None:
             self.dialogue.update()
-        elif self.state is not None:
-            self.state.update()
+        elif self.zone is not None:
+            self.zone.update()
 
         if self.controller.just_pressed("Y"):
             self.show_game_menu = True
@@ -161,11 +162,11 @@ class Game:
     def draw(self):
         self.screen.fill((0, 0, 0))
 
-        if self.state is not None:
-            self.state.draw()
+        if self.zone is not None:
+            self.zone.draw()
 
         if self.dialogue is not None:
-            self.state.draw()
+            self.zone.draw()
         
         if self.show_game_menu:
             self.game_menu.draw()
