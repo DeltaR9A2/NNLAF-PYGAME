@@ -37,10 +37,17 @@ class Terrain(Rect):
     def __init__(self):
         Rect.__init__(self)
         self.zone = None
+        self.static = True
+        self.images = []
+
+    def add_image(self, image_surface):
+        self.union(Rect(*image_surface.get_rect()))
+        self.images.append(image_surface)
 
     @property
     def rect(self):
         return self
 
     def draw(self, surface):
-        pass
+        for i in self.images:
+            surface.blit(i, self)

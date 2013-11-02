@@ -72,11 +72,12 @@ class State:
         for ter in self.terrain:
             map_size_rect.union(ter.rect)
 
-        self.map_surface = pygame.Surface(map_size_rect.size())
+        self.map_surface = pygame.Surface(map_size_rect.size)
 
         # Draw all static terrain and targets to the map surface
         for ter in self.terrain:
             if ter.static:
+                self.map_surface.fill((255, 0, 0), ter)
                 ter.draw(self.map_surface)
 
         for tar in self.targets:
@@ -86,6 +87,8 @@ class State:
     def draw(self):
         self.screen.blit(self.map_surface, (0, 0))
 
+    def update(self):
+        pass
 
 class Game:
     """This class represents the highest level of the game logic, managing the
@@ -101,20 +104,24 @@ class Game:
         self.main_menu = MainMenu(self)
         self.game_menu = GameMenu(self)
 
-        self.state = None
-        self.dialogue = None
-
         self.show_main_menu = True
         self.show_game_menu = False
-
-        self.dialogue_queue = []
-
-        self.message_timer = 0
-        self.message_queue = []
 
         self.battles = []
         self.targets = []
         self.terrain = []
+
+        ########
+        from world_model import Terrain
+        terrain_image = self.core.get_image("canister_apartment.png")
+        test_terrain = Terrain()
+        test_terrain.add_image(terrain_image)
+        test_terrain.zone = "apartment"
+        self.terrain.append(test_terrain)
+        ########
+
+        self.state = State(self, "apartment")
+        self.dialogue = None
 
     def fast_step(self):
         self.update()
